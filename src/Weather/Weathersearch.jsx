@@ -1,18 +1,19 @@
-import { h1 } from "framer-motion/client";
 import { useSelector } from "react-redux"
 
 const Weathersearch = () => {
     const weatherData = useSelector((state) => state.weatherData)
-    
-    return(
+
+
+    return (
         <div>
-            {weatherData&& (
+            {weatherData && (
 
-<>
-<h1>{weatherData?.data?.name}</h1>
-<h1>{weatherData?.data?.weather}</h1>
+                <>
+                    <h1>city: {weatherData?.data?.name}</h1>
+                    <h1>Temperature: {weatherData?.data?.temperature}</h1>
+                    <h1>Cloude: {weatherData?.data?.weather}</h1>
 
-</>
+                </>
             )}
         </div>
     )

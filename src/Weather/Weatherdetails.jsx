@@ -7,16 +7,14 @@ import { setWeatherData } from "../Redux/weatherSlice";
 
 
 const Weatherdetails = () => {
-    const [city, setCity] = useState('pune')
+    const [city, setCity] = useState('')
     const [error, setError] = useState('');
     const dispatch = useDispatch()
-console.log(city)
 
     const APIkey = "5011c36b13efc7f9aca5ad9b1c276d76"
 
-    const fetchingWeather = async () => {
-        const response = await axios(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIkey}`)
-        console.log(response);
+    const fetchingWeather = async (cit) => {        
+        const response = await axios(`https://api.openweathermap.org/data/2.5/weather?q=${cit}&appid=${APIkey}`)
         const data = response.data
         if(data) {
 
@@ -32,19 +30,28 @@ console.log(city)
         
     }
 
-    useEffect(() => {
-        fetchingWeather()
-    }, [])
-
     const handleChange = (e) => {        
         setCity(e.target.value)
+    }
+
+    const handleSubmit = (e) => {
+        
+        e.preventDefault()
+        try{
+            if (city.trim()) {
+                fetchingWeather(city);
+              }
+        } catch(error) {
+            console.error(error);
+            
+        }
     }
 
     
     return (
         <Box
           component="form" 
-        //   onSubmit={handleSubmit}
+          onSubmit={handleSubmit}
           sx={{
             width: '100%',
             maxWidth: 500,
